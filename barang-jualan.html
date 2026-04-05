@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>King Maul | Executive Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #ffffff;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 1.5rem;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo span {
+            color: #888;
+            font-weight: 300;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .nav-icons a,
+        .nav-icon-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+        }
+
+        .nav-icons a:hover,
+        .nav-icon-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-wrap {
+            position: fixed;
+            top: 78px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 0 1.5rem;
+            display: none;
+        }
+
+        .search-wrap.active {
+            display: block;
+        }
+
+        .search-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(8, 8, 8, 0.96);
+            color: #ffffff;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .search-input:focus {
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .search-note {
+            color: #777;
+            font-size: 0.78rem;
+            margin-top: 0.45rem;
+            padding-left: 0.2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 500;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: #888;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Products Section */
+        .products {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            margin-bottom: 2rem;
+            border-left: 3px solid white;
+            padding-left: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: #666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: #aaa;
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .product-code {
+            color: #666;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 0.8rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn-add:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* Featured Gallery */
+        .featured {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        .featured-card {
+            position: relative;
+            min-height: 680px;
+            border-radius: 0;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .featured-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.78);
+            transition: transform 0.5s ease;
+        }
+
+        .featured-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .featured-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1.5rem 2.4rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.05) 45%, rgba(0, 0, 0, 0));
+        }
+
+        .featured-label {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 400;
+            margin-bottom: 0.4rem;
+            color: #ffffff;
+        }
+
+        .featured-link {
+            color: rgba(255, 255, 255, 0.92);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            font-size: 0.95rem;
+        }
+
+        .featured-link:hover {
+            color: #ffffff;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 1.5rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            color: #444;
+            font-size: 0.7rem;
+        }
+
+        .search-empty {
+            display: none;
+            text-align: center;
+            color: #888;
+            padding: 0 1.5rem 2rem;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-grid {
+                gap: 1rem;
+            }
+
+            .featured {
+                padding: 0 1rem;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-card {
+                min-height: 460px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">MAUL<span>.</span></a>
+            <div class="nav-icons">
+                <button type="button" class="nav-icon-btn" id="searchToggle" aria-label="Cari produk">🔍</button>
+                <a href="#" aria-label="Cart">🛒</a>
+                <a href="#" aria-label="Account">👤</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-wrap" id="searchWrap">
+        <div class="search-inner">
+            <input type="text" id="productSearch" class="search-input"
+                placeholder="Cari nama, kategori, harga, atau kode produk...">
+            <div class="search-note">Coba ketik: m, 3, atau 2123</div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h1>Executive Collection</h1>
+            <p>Discover timeless elegance. Curated pieces for the modern visionary.</p>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="products">
+        <h2 class="section-title">Gallery Produk</h2>
+        <div class="product-grid">
+            <!-- CARA BUAT LINK MANUAL:
+                 Tombol gallery: <a href="#product-1">View More</a>
+                 Produk tujuan : <div id="product-1" class="product-card">
+                 Produk berikutnya pakai id="product-2", id="product-3", dst.
+            -->
+
+            <!-- TAMBAH PRODUK BARU: copy 1 blok .product-card di bawah ini lalu paste di sini -->
+
+            <!-- TEMPLATE PRODUK
+            <div class="product-card" data-search="nama produk kategori harga kode 2123 keyword lain">
+                <div class="product-image">
+                    <img src="https://link-foto-produk.jpg" alt="Nama Produk">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">CATEGORY</div>
+                    <div class="product-title">Nama Produk</div>
+                    <div class="product-price">$999</div>
+                    <div class="product-code">Code: 2123</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+            -->
+
+            <!-- Product 1 -->
+            <div id="product-1" class="product-card" data-search="leather tote bags 890 2123 tas kulit">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Leather+Tote" alt="Leather Tote">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">BAGS</div>
+                    <div class="product-title">Leather Tote</div>
+                    <div class="product-price">$890</div>
+                    <div class="product-code">Code: 2123</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div id="product-2" class="product-card" data-search="silk blazer apparel 1250 3345 jas sutra">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Silk+Blazer" alt="Silk Blazer">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">APPAREL</div>
+                    <div class="product-title">Silk Blazer</div>
+                    <div class="product-price">$1,250</div>
+                    <div class="product-code">Code: 3345</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div id="product-3" class="product-card" data-search="minimalist chrono watches 2400 4488 jam tangan">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Minimalist+Chrono"
+                        alt="Minimalist Chrono">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">WATCHES</div>
+                    <div class="product-title">Minimalist Chrono</div>
+                    <div class="product-price">$2,400</div>
+                    <div class="product-code">Code: 4488</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div id="product-4" class="product-card" data-search="leather loafers footwear 650 5501 sepatu kulit">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Leather+Loafers" alt="Leather Loafers">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">FOOTWEAR</div>
+                    <div class="product-title">Leather Loafers</div>
+                    <div class="product-price">$650</div>
+                    <div class="product-code">Code: 5501</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Gallery -->
+    <section class="featured">
+        <div class="featured-grid">
+            <a href="#product-1" class="featured-card" aria-label="Gallery Photo One">
+                <img src="https://picsum.photos/seed/gallery-one/900/1200" alt="Gallery Photo One">
+                <div class="featured-overlay">
+                    <div class="featured-label">Gallery 01</div>
+                    <span class="featured-link">View More</span>
+                </div>
+            </a>
+
+            <a href="#product-2" class="featured-card" aria-label="Gallery Photo Two">
+                <img src="https://picsum.photos/seed/gallery-two/900/1200" alt="Gallery Photo Two">
+                <div class="featured-overlay">
+                    <div class="featured-label">Gallery 02</div>
+                    <span class="featured-link">View More</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- More Products -->
+    <section class="products">
+        <h2 class="section-title">Best Sellers</h2>
+        <div class="product-grid">
+            <div class="product-card" data-search="wool overcoat outerwear 1890 6702 coat premium">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Wool+Overcoat" alt="Wool Overcoat">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">OUTERWEAR</div>
+                    <div class="product-title">Wool Overcoat</div>
+                    <div class="product-price">$1,890</div>
+                    <div class="product-code">Code: 6702</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+            <div class="product-card" data-search="aviator sunglasses accessories 420 7811 kacamata">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Aviator+Sunglasses"
+                        alt="Aviator Sunglasses">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">ACCESSORIES</div>
+                    <div class="product-title">Aviator Sunglasses</div>
+                    <div class="product-price">$420</div>
+                    <div class="product-code">Code: 7811</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+            <div class="product-card" data-search="briefcase bags 1150 8920 tas kerja">
+                <div class="product-image">
+                    <img src="https://placehold.co/600x800/111111/FFFFFF?text=Briefcase" alt="Briefcase">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">BAGS</div>
+                    <div class="product-title">Briefcase</div>
+                    <div class="product-price">$1,150</div>
+                    <div class="product-code">Code: 8920</div>
+                    <button class="btn-add">Add to Cart →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="search-empty" id="searchEmpty">Produk tidak ditemukan. Coba kata kunci lain.</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>SHOP</h4>
+                <a href="#">New Arrivals</a>
+                <a href="#">Best Sellers</a>
+                <a href="#">Limited Edition</a>
+                <a href="#">Sale</a>
+            </div>
+            <div class="footer-col">
+                <h4>SUPPORT</h4>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Size Guide</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>COMPANY</h4>
+                <a href="#">About</a>
+                <a href="#">Sustainability</a>
+                <a href="#">Press</a>
+                <a href="#">Careers</a>
+            </div>
+            <div class="footer-col">
+                <h4>FOLLOW</h4>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+        <div class="copyright">
+            KING MAUL ENTERPRISES — © 2026. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const searchToggle = document.getElementById('searchToggle');
+        const searchWrap = document.getElementById('searchWrap');
+        const productSearch = document.getElementById('productSearch');
+        const productCards = document.querySelectorAll('.product-card');
+        const searchEmpty = document.getElementById('searchEmpty');
+
+        function filterProducts() {
+            const query = productSearch.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            productCards.forEach((card) => {
+                const extraSearch = card.dataset.search || '';
+                const searchableText = `${extraSearch} ${card.textContent}`.toLowerCase();
+                const isMatch = query === '' || searchableText.includes(query);
+
+                card.style.display = isMatch ? '' : 'none';
+
+                if (isMatch) {
+                    visibleCount += 1;
+                }
+            });
+
+            searchEmpty.style.display = query !== '' && visibleCount === 0 ? 'block' : 'none';
+        }
+
+        searchToggle.addEventListener('click', () => {
+            searchWrap.classList.toggle('active');
+
+            if (searchWrap.classList.contains('active')) {
+                productSearch.focus();
+            } else {
+                productSearch.value = '';
+                filterProducts();
+            }
+        });
+
+        productSearch.addEventListener('input', filterProducts);
+
+        productSearch.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                searchWrap.classList.remove('active');
+                productSearch.value = '';
+                filterProducts();
+            }
+        });
+    </script>
+</body>
+
+</html>

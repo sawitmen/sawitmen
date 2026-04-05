@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>King Maul | Executive Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* Background subtle gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Profile Section */
+        .profile {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .avatar-frame {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Elegant initial avatar if no image */
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .title {
+            color: #888888;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .bio {
+            color: #aaaaaa;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .gallery-text {
+            margin-top: 1.25rem;
+            color: #d0d0d0;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Links Section */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .link-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card:hover {
+            background: rgba(40, 40, 40, 0.8);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .link-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+        }
+
+        .link-icon {
+            font-size: 1.3rem;
+            width: 28px;
+            text-align: center;
+        }
+
+        .link-arrow {
+            color: #666666;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .link-card:hover .link-arrow {
+            transform: translateX(5px);
+            color: #ffffff;
+        }
+
+        /* Social Media Row - HANYA 3 ICON */
+        .social-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .social-label {
+            color: #555555;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            color: #888888;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(30, 30, 30, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .social-icon:hover {
+            color: #ffffff;
+            background: rgba(60, 60, 60, 0.8);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #444444;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .link-card {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .link-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .link-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .link-card:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .link-card:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .social-section {
+            animation: fadeInUp 0.6s ease-out 0.25s backwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Profile -->
+        <div class="profile">
+            <div class="avatar-frame">
+                <div class="avatar-placeholder">
+                    KM
+                </div>
+                <!-- Kalau King Maul punya foto, ganti div di atas dengan ini:
+                <img class="avatar" src="foto-kingmaul.jpg" alt="King Maul">
+                -->
+            </div>
+            <h1>King Maul</h1>
+            <div class="title">EXECUTIVE • VISIONARY • CREATOR</div>
+            <div class="bio">
+                Building empires in the digital realm.
+                Simplicity is the ultimate sophistication.
+            </div>
+            <div class="gallery-text">Gallery</div>
+        </div>
+
+        <!-- Main Links -->
+        <div class="links">
+            <a href="./barang-jualan.html" class="link-card">
+                <div class="link-left">
+                    <span class="link-icon">🌐</span>
+                    <span>Official Website</span>
+                </div>
+                <span class="link-arrow">→</span>
+            </a>
+
+            <a href="https://github.com/sawitmen" class="link-card" target="_blank" rel="noopener noreferrer">
+                <div class="link-left">
+                    <span class="link-icon">⌨️</span>
+                    <span>GitHub / Projects</span>
+                </div>
+                <span class="link-arrow">→</span>
+            </a>
+
+            <a href="https://www.youtube.com" class="link-card" target="_blank" rel="noopener noreferrer">
+                <div class="link-left">
+                    <span class="link-icon">▶️</span>
+                    <span>YouTube Channel</span>
+                </div>
+                <span class="link-arrow">→</span>
+            </a>
+
+            <a href="https://www.sawitmen.com/jakarta.html" class="link-card" target="_blank" rel="noopener noreferrer">
+                <div class="link-left">
+                    <span class="link-icon">📷</span>
+                    <span>Portfolio / Gallery</span>
+                </div>
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+
+        <!-- Social Media Links - Cuma 3: Instagram, TikTok, Twitter -->
+        <div class="social-section">
+            <div class="social-label">CONNECT OFFICIALLY</div>
+            <div class="social-icons">
+                <!-- Instagram -->
+                <a href="https://instagram.com/ahmdmvl" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm5.25-3.25a1.25 1.25 0 1 1-1.25 1.25 1.25 1.25 0 0 1 1.25-1.25Z" />
+                    </svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@nafas_opi?is_from_webapp=1&sender_device=pc" class="social-icon"
+                    target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M14 3c.3 2.2 1.6 3.8 3.9 4.2V10a8.2 8.2 0 0 1-3.9-1.2v6.4A5.8 5.8 0 1 1 8.2 9.4v2.8a3.1 3.1 0 1 0 3.1 3.1V3H14Z" />
+                    </svg>
+                </a>
+                <!-- Twitter -->
+                <a href="https://x.com/goeblog" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.2L6.7 22H3.6l7.3-8.4L1 2h6.3l4.3 5.7L18.9 2Zm-1.1 18h1.7L6.4 3.9H4.6L17.8 20Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            KING MAUL ENTERPRISES — EST. 2026
+        </div>
+    </div>
+</body>
+
+</html>
