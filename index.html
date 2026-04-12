@@ -51,10 +51,11 @@
         }
 
         .avatar-frame {
-            width: 120px;
-            height: 120px;
+            width: 132px;
+            height: 132px;
             margin: 0 auto 1.5rem;
             position: relative;
+            overflow: hidden;
         }
 
         .avatar {
@@ -65,6 +66,13 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .avatar-logo {
+            object-fit: contain;
+            padding: 6px;
+            background: radial-gradient(circle at 30% 30%, #111126 0%, #060611 75%);
+            border-color: rgba(255, 255, 255, 0.35);
         }
 
         .avatar:hover {
@@ -86,6 +94,10 @@
             font-weight: 600;
             letter-spacing: 2px;
             color: #ffffff;
+        }
+
+        .avatar-placeholder.is-hidden {
+            display: none;
         }
 
         h1 {
@@ -295,12 +307,11 @@
         <!-- Profile -->
         <div class="profile">
             <div class="avatar-frame">
-                <div class="avatar-placeholder">
+                <img class="avatar avatar-logo" src="./xul-logo.png" alt="Logo xuL"
+                    onerror="this.style.display='none'; this.nextElementSibling.classList.remove('is-hidden');">
+                <div class="avatar-placeholder is-hidden">
                     X
                 </div>
-                <!-- Kalau King Maul punya foto, ganti div di atas dengan ini:
-                <img class="avatar" src="foto-kingmaul.jpg" alt="King Maul">
-                -->
             </div>
             <h1>xuL</h1>
             <div class="title">EXECUTIVE • VISIONARY • CREATOR</div>
